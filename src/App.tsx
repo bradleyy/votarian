@@ -1,33 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+
 import SortableComponent from './SortableComponent';
+import AppMenuBar from './AppMenuBar';
 //import logo from './logo.svg';
 import './App.css';
 
-  // width: 400px;
-  // margin: 30px auto;
-  // font-family: ${fontFamily};
-  // font-size: ${fontSize};
-  // color: ${gray2};
-  const Container = styled.div`
-  ul {
-    list-style: none;
-    padding: 0px 20px;
-    background-color: #fff;
-    color: #000;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top: 3px solid #9b8dab;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.16);
-  }
-`;
+const Container = styled.div``;
+
+export enum Phases {
+  AddingItems,
+  Voting,
+  Results
+}
+
 const App: React.FC = () => {
+  const [items, setItems] = useState(["Pizza", "Burgers", "Shakes", "Indian", "Ice Cream", ]);
+  const [remaining, setRemaining] = useState(20);
+  const [phase, setPhase] = useState(Phases.AddingItems);
+
+  if (remaining === 0 && phase !== Phases.Results) {
+    setPhase(phase+1);
+    if (phase !== Phases.Results - 1) {
+      setRemaining(20);
+    }
+  }
+
   return (
     <Container className="App">
-      <header className="App-header">
-        <SortableComponent />
-      </header>
+      {/* <header className="App-header">
+      </header> */}
+      <SortableComponent items={items} setItems={setItems} phase={phase} />
+      <AppMenuBar items={items} setItems={setItems} remaining={remaining} setRemaining={setRemaining} phase={phase} />
     </Container>
   );
 }
