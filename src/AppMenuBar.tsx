@@ -24,6 +24,7 @@ import CountdownTimer, { CountdownProps } from './CountdownTimer';
 import {ItemsProps} from './SortableComponent';
 import AddItem from './AddItem';
 import {Phases} from './App';
+import AppMenu from './AppMenu';
 
 const useStyles = makeStyles(theme => ({
     text: {
@@ -86,9 +87,10 @@ const AppMenuBar = ({items, setItems, remaining, setRemaining, phase}:Combo) => 
         <IconButton edge="end" color="inherit">
             <MoreIcon />
         </IconButton> */}
-        <IconButton edge="start" color="inherit" aria-label="open drawer">
+        {/* <IconButton edge="start" color="inherit" aria-label="open drawer">
             <MenuIcon />
-        </IconButton>
+        </IconButton> */}
+        <AppMenu />
         </Toolbar>
         </AppBar>
     );

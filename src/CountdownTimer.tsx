@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 
 const CountdownTimer = ({remaining, setRemaining}:CountdownProps) => {
     React.useEffect(() => {
-        if (remaining > 0) {
+        if (remaining !== 0) {
             const timerID = setInterval(() => {setRemaining(remaining - 1);}, 1000);
-            return () => {clearInterval(timerID)};    
+            console.log("setting duration to " + (remaining - 1) + " with timer: " + timerID)
+            return () => {
+                console.log("clearing timer: " + timerID);
+                clearInterval(timerID)
+            };    
         }
-    }, [remaining,]
+    }, [remaining]
     );
     let isRed = false
     if (remaining < 10 && remaining % 2 === 1) {
