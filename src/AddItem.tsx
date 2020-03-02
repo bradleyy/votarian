@@ -1,11 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
@@ -13,7 +11,8 @@ import TextField from "@material-ui/core/TextField";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import {ItemsProps} from './SortableComponent';
+import {CandidatesProps} from './SortableComponent';
+import { observer } from "mobx-react";
 
 const useStyles = makeStyles(theme => ({
   fabButton: {
@@ -26,11 +25,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface HideableItemsProps extends ItemsProps {
+interface HideableItemsProps extends CandidatesProps {
   hidden: boolean
 }
 
-const AddItem = ({items, setItems, hidden}:HideableItemsProps) => {
+const AddItem = observer(({candidates, hidden}:HideableItemsProps) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [itemText, setItemText] = React.useState("");
@@ -41,7 +40,7 @@ const AddItem = ({items, setItems, hidden}:HideableItemsProps) => {
 
   const handleClose = () => {
     setOpen(false);
-    setItems([itemText].concat(items));
+    candidates.addCandidate(itemText);
     setItemText("");
   };
 
@@ -86,12 +85,6 @@ const AddItem = ({items, setItems, hidden}:HideableItemsProps) => {
       </Dialog>
     </div>
   );
-}
-
-AddItem.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
-  setItems: PropTypes.func,
-  hidden: PropTypes.bool
-};
+});
 
 export default AddItem;

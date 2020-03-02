@@ -1,16 +1,16 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { Candidate } from "./Candidates";
 
 interface OpenProps {
   open: boolean;
   setOpen: Function;
-  winner: String;
+  winner: Candidate;
 }
 
 const WinnerPopup = ({open, setOpen, winner}:OpenProps) => {
@@ -25,7 +25,7 @@ const WinnerPopup = ({open, setOpen, winner}:OpenProps) => {
           {"Add Item to voting pool"}
         </DialogTitle>
         <DialogContent>
-          The winner is {winner}.
+          The winner is {winner.name}.
         </DialogContent>
         <DialogActions>
           <Button onClick={() => {setOpen(false)}} color="primary">
@@ -35,11 +35,5 @@ const WinnerPopup = ({open, setOpen, winner}:OpenProps) => {
       </Dialog>
   );
 }
-
-WinnerPopup.propTypes = {
-  open: PropTypes.bool,
-  setOpen: PropTypes.func,
-  winner: PropTypes.string
-};
 
 export default WinnerPopup;

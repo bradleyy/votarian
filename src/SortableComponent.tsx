@@ -1,40 +1,35 @@
 import React from 'react';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
-import PropTypes from "prop-types";
+import { observer } from 'mobx-react';
 
-import arrayMove from 'array-move';
 import { Phases } from './App';
+import CandidateList from './Candidates';
 
 
 const SortableItem = SortableElement(({value} : {value:String}) => <li>{value}</li>);
 
-const SortableList = SortableContainer(({items, phase} : {items:String[], phase:number}) => {
+const SortableList = SortableContainer(observer(({candidates, phase} : {candidates:CandidateList, phase:number}) => {
   return (
       <ul>
-        {items.map((value, index) => (
-          <SortableItem key={`item-${value}`} index={index} value={value} disabled={phase === Phases.Results} />
+        {candidates.candidates.map((candidate, index) => (
+          <SortableItem key={`item-${candidate.name}`} index={index} value={candidate.name} disabled={phase === Phases.Results} />
         ))}
       </ul>
   );
-});
+}));
 
-export interface ItemsProps {
-    items: string[];
-    setItems: Function;
+export interface CandidatesProps {
+    candidates: CandidateList;
     phase: number;
 }
 
-const SortableComponent = ({items, setItems, phase}:ItemsProps) => {
+const SortableComponent = observer(({candidates, phase}:CandidatesProps) => {
   const onSortEnd = ({oldIndex, newIndex} : {oldIndex:number, newIndex:number}) => {
-    setItems(arrayMove(items, oldIndex, newIndex));
+    candidates.move(oldIndex, newIndex);
   };
   
-  return <SortableList items={items} onSortEnd={onSortEnd} phase={phase} />;
+  return <SortableList candidates={candidates} onSortEnd={onSortEnd} phase={phase} />;
   
-}
-SortableComponent.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.string),
-    setItems: PropTypes.func
-};
+});
 
 export default SortableComponent;
