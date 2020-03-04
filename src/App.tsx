@@ -35,7 +35,7 @@ const App: React.FC = observer(() => {
       setOpen(true);
     }
   }
-  const showQR = true;
+  const showQR = false;
   return (
     <Container className="App">
       {/* <header className="App-header">

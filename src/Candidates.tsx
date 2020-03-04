@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx"
+import { observable, computed, action } from "mobx"
 import arrayMove from "array-move";
 
 
@@ -35,10 +35,12 @@ class CandidateList {
 	// 		`Progress: ${this.completedTodosCount}/${this.todos.length}`;
 	// }
 
+    @action
 	addCandidate(candidate: string) {
 		this.candidates.push(new Candidate(candidate, this.candidates.length));
         // push this to server
     }
+    @action
     move(oldIndex: number, newIndex: number) {
         this.candidates = arrayMove(this.candidates, oldIndex, newIndex);
         if (1) {

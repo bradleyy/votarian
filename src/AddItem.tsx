@@ -25,18 +25,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface HideableItemsProps extends CandidatesProps {
-  hidden: boolean
-}
 
-const AddItem = observer(({candidates, hidden}:HideableItemsProps) => {
+const AddItem = observer(({candidates}:CandidatesProps) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [itemText, setItemText] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
+  }    
 
   const handleClose = () => {
     setOpen(false);
@@ -45,7 +42,7 @@ const AddItem = observer(({candidates, hidden}:HideableItemsProps) => {
   };
 
   return (
-    <div hidden={hidden}>
+    <div>
       <Fab
         color="secondary"
         aria-label="add"
@@ -54,6 +51,7 @@ const AddItem = observer(({candidates, hidden}:HideableItemsProps) => {
       >
         <AddIcon />
       </Fab>
+      {open ?
       <Dialog
         open={open}
         onClose={handleClose}
@@ -65,6 +63,7 @@ const AddItem = observer(({candidates, hidden}:HideableItemsProps) => {
         </DialogTitle>
         <DialogContent>
           <TextField
+            autoFocus
             id="outlined-basic"
             label="New Item"
             variant="outlined"
@@ -78,11 +77,12 @@ const AddItem = observer(({candidates, hidden}:HideableItemsProps) => {
           <Button onClick={() => {setOpen(false)}} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleClose} color="primary">
             Submit
           </Button>
         </DialogActions>
       </Dialog>
+      : "" }
     </div>
   );
 });

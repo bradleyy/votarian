@@ -60,7 +60,10 @@ const AppMenuBar = ({candidates, remaining, setRemaining, phase}:Combo) => {
     return (
         <AppBar position="fixed" color={remaining < 10 && remaining % 2 === 1 ? "inherit": "primary"} className={classes.appBar}>
         <Toolbar>
-        <AddItem candidates={candidates} phase={phase} hidden={phase !== Phases.Nomination } />
+          {phase === Phases.Nomination ? 
+            <AddItem candidates={candidates} phase={phase} />
+            : ""
+          }
         <div className={classes.grow} >
             <CountdownTimer remaining={remaining} setRemaining={setRemaining} /> 
             {printPhase(phase)}
