@@ -21,10 +21,11 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-qr-svg": "^2.2.1",
-    "react-scripts": "3.3.0",
+    "react-scripts": "^3.4.0",
     "react-sortable-hoc": "^1.11.0",
     "react-styled-components": "^0.1.11",
     "serialize-javascript": "2.1.1",
+    "terser-webpack-plugin": "^2.3.5",
     "typescript": "~3.7.2"
   },
   "scripts": {
